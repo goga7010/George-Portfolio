@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//Printing empty grid
         Scanner sc = new Scanner(System.in);
         int counterSpace = 9;
         int countO = 0;
@@ -19,10 +18,9 @@ public class Main {
             System.out.println("|");
         }
         System.out.println("---------");
-        boolean continu = true; //the whole game
+        boolean continu = true; 
         int turn = 1;
-        while (continu = true) { //the whole game
-            //Checking numbers
+        while (continu = true) { 
             int t = 0;
             while (t == 0) {
                 System.out.println("Enter the coordinates: ");
@@ -63,11 +61,11 @@ public class Main {
                 System.out.println("|");
             }
             System.out.println("---------");
-//OPERATIONS
+            
             boolean thereIsAWinner = false;
             boolean xWon = false;
             boolean oWon = false;
-            for (int k = 0; k < 3; k++) { //horizontal
+            for (int k = 0; k < 3; k++) { 
                 for (int j = 0; j < 1; j++) {
                     if (arr[k][j] == arr[k][j+1] && arr[k][j+1] == arr[k][j+2] && arr[k][j+2] == 'X') {
                         thereIsAWinner = true;
@@ -78,7 +76,7 @@ public class Main {
                     }
                 }
             }
-            for (int g = 0; g < 1; g++) { //vertical
+            for (int g = 0; g < 1; g++) { 
                 for (int j = 0; j < 3; j++) {
                     if (arr[g][j] == arr[g+1][j] && arr[g+1][j] == arr[g+2][j] && arr[g+2][j] == 'X') {
                         thereIsAWinner = true;
@@ -89,21 +87,21 @@ public class Main {
                     }
                 }
             }
-            if (arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2] && arr[2][2] == 'X') { //diagonal1
+            if (arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2] && arr[2][2] == 'X') { 
                 thereIsAWinner = true;
                 xWon = true;
             } else if (arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2] && arr[2][2] == 'O') {
                 thereIsAWinner = true;
                 oWon = true;
             }
-            if (arr[0][2] == arr[1][1] && arr[1][1] == arr[2][0] && arr[2][0] == 'X') { //diagonal2
+            if (arr[0][2] == arr[1][1] && arr[1][1] == arr[2][0] && arr[2][0] == 'X') { 
                 thereIsAWinner = true;
                 xWon = true;
             } else if (arr[0][2] == arr[1][1] && arr[1][1] == arr[2][0] && arr[2][0] == 'O') {
                 thereIsAWinner = true;
                 oWon = true;
             }
-        //PRINTING DEPARTMENT
+            
             if ((xWon == true && oWon == true) || (countX >= countO + 2 || countO >= countX + 2)) {
                 System.out.println("Impossible");
                 break;
