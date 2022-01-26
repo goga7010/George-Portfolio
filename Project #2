@@ -1,0 +1,125 @@
+package tictactoe;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+//Printing empty grid
+        Scanner sc = new Scanner(System.in);
+        int counterSpace = 9;
+        int countO = 0;
+        int countX = 0;
+        char[][] arr = new char[3][3];
+        System.out.println("---------");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < arr[0].length; j++) {
+                arr[i][j] = ' ';
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println("|");
+        }
+        System.out.println("---------");
+        boolean continu = true; //the whole game
+        int turn = 1;
+        while (continu = true) { //the whole game
+            //Checking numbers
+            int t = 0;
+            while (t == 0) {
+                System.out.println("Enter the coordinates: ");
+                var n = sc.nextInt();
+                var m = sc.nextInt();
+                if (n > 3 || m > 3) {
+                    System.out.println("Coordinates should be from 1 to 3!");
+                    continue;
+                } else if (n <= 3 && m <= 3) {
+                    if (arr[n - 1][m - 1] == 'X' || arr[n-1][m-1] == 'O') {
+                        System.out.println("This cell is occupied! Choose another one!");
+                        continue;
+                    } else {
+                        if (turn % 2 == 1) {
+                            arr[n-1][m-1] = 'X';
+                            turn++;
+                            counterSpace--;
+                            countX++;
+                            t++;
+                        } else if (turn % 2 == 0) {
+                            arr[n-1][m-1] = 'O';
+                            turn++;
+                            counterSpace--;
+                            countO++;
+                            t++;
+                        }
+                    }
+                } else {
+                    System.out.println("You should print numbers!");
+                } 
+            }
+            System.out.println("---------");
+            for (int i = 0; i < arr.length; i++) {
+                System.out.print("| ");
+                for (int j = 0; j < arr[0].length; j++) {
+                    System.out.print(arr[i][j] + " ");
+                }
+                System.out.println("|");
+            }
+            System.out.println("---------");
+//OPERATIONS
+            boolean thereIsAWinner = false;
+            boolean xWon = false;
+            boolean oWon = false;
+            for (int k = 0; k < 3; k++) { //horizontal
+                for (int j = 0; j < 1; j++) {
+                    if (arr[k][j] == arr[k][j+1] && arr[k][j+1] == arr[k][j+2] && arr[k][j+2] == 'X') {
+                        thereIsAWinner = true;
+                        xWon = true;
+                    } else if (arr[k][j] == arr[k][j+1] && arr[k][j+1] == arr[k][j+2] && arr[k][j+2] == 'O') {
+                        thereIsAWinner = true;
+                        oWon = true;
+                    }
+                }
+            }
+            for (int g = 0; g < 1; g++) { //vertical
+                for (int j = 0; j < 3; j++) {
+                    if (arr[g][j] == arr[g+1][j] && arr[g+1][j] == arr[g+2][j] && arr[g+2][j] == 'X') {
+                        thereIsAWinner = true;
+                        xWon = true;
+                    } else if (arr[g][j] == arr[g+1][j] && arr[g+1][j] == arr[g+2][j] && arr[g+2][j] == 'O') {
+                        thereIsAWinner = true;
+                        oWon = true;
+                    }
+                }
+            }
+            if (arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2] && arr[2][2] == 'X') { //diagonal1
+                thereIsAWinner = true;
+                xWon = true;
+            } else if (arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2] && arr[2][2] == 'O') {
+                thereIsAWinner = true;
+                oWon = true;
+            }
+            if (arr[0][2] == arr[1][1] && arr[1][1] == arr[2][0] && arr[2][0] == 'X') { //diagonal2
+                thereIsAWinner = true;
+                xWon = true;
+            } else if (arr[0][2] == arr[1][1] && arr[1][1] == arr[2][0] && arr[2][0] == 'O') {
+                thereIsAWinner = true;
+                oWon = true;
+            }
+        //PRINTING DEPARTMENT
+            if ((xWon == true && oWon == true) || (countX >= countO + 2 || countO >= countX + 2)) {
+                System.out.println("Impossible");
+                break;
+            } else if (thereIsAWinner == false && counterSpace == 0) {
+                System.out.println("Draw");
+                continu = false;
+                break;
+            } else if (xWon == true) {
+                System.out.println("X wins");
+                continu = false;
+                break;
+            } else if (oWon == true) {
+                System.out.println("O wins");
+                continu = false;
+                break;
+            }
+        }
+    }
+}
