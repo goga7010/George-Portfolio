@@ -1,0 +1,115 @@
+package cinema;
+import java.util.Scanner;
+
+public class Cinema {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of rows:");
+        int rows = scanner.nextInt();
+        System.out.println("Enter the number of seats in each row:");
+        int seats = scanner.nextInt();
+        int counter = 0;
+        int income = 0;
+        float MaxIncome = 0;
+        int total = rows * seats;
+        if (total <= 60) {
+            MaxIncome = total * 10;
+        } else {
+            double halfOne = Math.floor(rows / 2);
+            double halfTwo = rows - halfOne;
+            double intermediateValue = (halfOne * seats * 10) + (halfTwo * seats * 8);
+            MaxIncome = (float) intermediateValue;
+        }
+        boolean exit = false;
+        char[][] cinema = new char[rows][seats];
+        for (int a = 0; a < cinema.length; a++) {
+            for (int b = 0; b < cinema[a].length; b++) {
+                cinema[a][b] = 'S';
+            }
+        }
+        while (exit == false) {
+            System.out.println("1. Show the seats");
+            System.out.println("2. Buy a ticket");
+            System.out.println("3. Statistics");
+            System.out.println("0. Exit");
+            int option = scanner.nextInt();
+            switch (option) {
+                case 0:
+                    exit = true;
+                    break;
+                case 1:
+                    System.out.println("Cinema: ");
+                    System.out.print("  ");
+                    for (int e = 1; e < seats + 1; e++) {
+                        System.out.print(e + " ");
+                    }
+                    System.out.println();
+                    for (int c = 0; c < cinema.length; c++) {
+                        System.out.print((c + 1) + " ");
+                        for (int d = 0; d < cinema[c].length; d++) {
+                            System.out.print(cinema[c][d] + " ");
+                        }
+                        System.out.println();
+                    }
+                    break;
+                case 2:
+                    boolean repeat = true;
+                    while (repeat == true) {
+                        System.out.println("Enter a row number:");
+                        int rn = scanner.nextInt();
+                        if (rn > rows) {
+                            System.out.println("Wrong input!");
+                            repeat = true;
+                            continue;
+                        } else {
+                            repeat = false;
+                        }
+                        System.out.println("Enter a seat number in that row:");
+                        int sn = scanner.nextInt();
+                        if (sn > seats) {
+                            System.out.println("Wrong input!");
+                            repeat = true;
+                            continue;
+                        } else {
+                            repeat = false;
+                        }
+                        if (cinema[rn - 1][sn - 1] == 'B') {
+                            System.out.println("That ticket has already been purchased!");
+                            repeat = true;
+                            continue;
+                        } else {
+                            repeat = false;
+                        }
+                    cinema[rn - 1][sn - 1] = 'B';
+                    int price = 0;
+                    System.out.print("Ticket price: ");
+                    System.out.print('$');
+                    if (total <= 60) {
+                        price = 10;
+                    } else {
+                        double halfOne = Math.floor(rows / 2);
+                        double halfTwo = rows - halfOne;
+                        if (rn <= halfOne) {
+                            price = 10;
+                        } else if (rn > halfOne) {
+                            price = 8;
+                        }
+                    }
+                    System.out.println(price);
+                    counter++;
+                    income = income + price;
+                    }
+                    break;
+                case 3:  
+                    System.out.println("Number of purchased tickets: " + counter);
+                    double percentage = (double) (counter * 100) / total;
+                    System.out.printf("Percentage: %.2f", percentage);
+                    System.out.println('%');
+                    System.out.println("Current income: $" + income);
+                    System.out.printf("Total income: $%.0f", MaxIncome);
+                    System.out.println();
+                    break;
+            }    
+        }
+    }      
+}
